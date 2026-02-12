@@ -2,159 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SmartStudy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Study</title>
+
+  <!-- Branding -->
+  <meta name="theme-color" content="#2563EB">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #4facfe, #00f2fe);
       margin: 0;
-      padding: 0;
-      color: #333;
+      font-family: 'Poppins', sans-serif;
+      background: #F3F4F6;
+      color: #111827;
     }
 
-    .app {
-      max-width: 600px;
-      margin: 40px auto;
-      background: #fff;
+    header {
+      background: #2563EB;
+      color: white;
       padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
-
-    h1 {
       text-align: center;
-      color: #4facfe;
     }
 
-    button {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background: #4facfe;
-      color: #fff;
-      cursor: pointer;
+    section {
+      background: white;
+      margin: 15px;
+      padding: 20px;
+      border-radius: 14px;
     }
 
-    button:hover {
-      background: #00c6fb;
+    h2 {
+      color: #2563EB;
+      margin-top: 0;
     }
 
-    .question {
-      font-size: 18px;
-      margin-bottom: 15px;
+    .btn {
+      display: inline-block;
+      background: #2563EB;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 10px;
     }
 
-    .option {
-      background: #eee;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .option:hover {
-      background: #ddd;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .score {
+    footer {
       text-align: center;
-      font-size: 20px;
-      font-weight: bold;
+      padding: 15px;
+      font-size: 14px;
+      color: #6B7280;
     }
   </style>
 </head>
+
 <body>
 
-<div class="app">
-  <h1>SmartStudy</h1>
+<header>
+  <h1>Smart Study</h1>
+  <p>Study smarter, not harder</p>
+</header>
 
-  <div id="home">
-    <p>Select a subject:</p>
-    <button onclick="startQuiz('science')">Science</button>
-    <button onclick="startQuiz('art')">Art</button>
-    <button onclick="startQuiz('commercial')">Commercial</button>
-  </div>
+<section>
+  <h2>📘 About Smart Study</h2>
+  <p>
+    Smart Study is a simple study companion built for students.
+    It helps you stay focused, motivated, and consistent.
+  </p>
+</section>
 
-  <div id="quiz" class="hidden">
-    <div class="question" id="questionText"></div>
-    <div id="options"></div>
-  </div>
+<section>
+  <h2>🧠 Study Tips</h2>
+  <ul>
+    <li>Study in short focused sessions</li>
+    <li>Remove distractions</li>
+    <li>Revise daily</li>
+    <li>Teach others what you learn</li>
+  </ul>
+</section>
 
-  <div id="result" class="hidden">
-    <p class="score" id="scoreText"></p>
-    <button onclick="goHome()">Back to Home</button>
-  </div>
-</div>
+<section>
+  <h2>🔥 Daily Motivation</h2>
+  <p id="quote">Loading...</p>
+</section>
+
+<section>
+  <h2>📞 Contact</h2>
+  <a class="btn" href="https://wa.me/2348157218814">Chat on WhatsApp</a>
+</section>
+
+<footer>
+  © 2026 Smart Study
+</footer>
 
 <script>
-  const questions = {
-    science: [
-      {
-        q: "What planet is known as the Red Planet?",
-        options: ["Earth", "Mars", "Venus", "Jupiter"],
-        answer: 1
-      },
-      {
-        q: "What gas do plants absorb?",
-        options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
-        answer: 1
-      }
-    ],
-    art: [
-      {
-        q: "Who painted the Mona Lisa?",
-        options: ["Van Gogh", "Picasso", "Leonardo da Vinci", "Michelangelo"],
-        answer: 2
-      },
-      {
-        q: "Art that uses paint is called?",
-        options: ["Sculpture", "Painting", "Drama", "Dance"],
-        answer: 1
-      }
-    ],
-    commercial: [
-      {
-        q: "What does profit mean?",
-        options: ["Loss", "Debt", "Gain", "Salary"],
-        answer: 2
-      },
-      {
-        q: "Which is a type of business?",
-        options: ["School", "Hospital", "Sole proprietorship", "Church"],
-        answer: 2
-      }
-    ]
-  };
+  const quotes = [
+    "Success is built daily.",
+    "Small progress is progress.",
+    "Study today, relax tomorrow.",
+    "Your future depends on today.",
+    "Focus beats talent."
+  ];
+  document.getElementById("quote").textContent =
+    quotes[Math.floor(Math.random() * quotes.length)];
 
-  let currentSubject = "";
-  let currentQuestion = 0;
-  let score = 0;
-
-  function startQuiz(subject) {
-    currentSubject = subject;
-    currentQuestion = 0;
-    score = 0;
-
-    document.getElementById("home").classList.add("hidden");
-    document.getElementById("quiz").classList.remove("hidden");
-
-    showQuestion();
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
   }
+</script>
 
-  function showQuestion() {
-    const q = questions[currentSubject][currentQuestion];
-    document.getElementById("questionText").textContent = q.q;
-
-    const optionsDiv = document.getElementById("options");
-    optionsDiv.innerHTML = "";
-
-    q.options.for
+</body>
+</html>
